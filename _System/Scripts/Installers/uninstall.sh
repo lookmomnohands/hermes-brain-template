@@ -36,7 +36,7 @@ if command -v hermes >/dev/null 2>&1; then
   CURRENT=$(hermes config get env.HERMES_VAULT_PATH 2>/dev/null || true)
   if [ -n "$CURRENT" ] && [ "$CURRENT" = "$DEST" ]; then
     read -rp "  Unset env.HERMES_VAULT_PATH (currently set to this vault)? [Y/n]: " UNSET
-    if [ "${UNSET,,}" != "n" ]; then
+    if [ $(lower "$UNSET") != "n" ]; then
       hermes config unset env.HERMES_VAULT_PATH \
         && ok "Unset env.HERMES_VAULT_PATH" \
         || warn "Couldn't unset automatically — run manually: hermes config unset env.HERMES_VAULT_PATH"
@@ -58,7 +58,7 @@ bold "Cron job & hooks cleanup"
 if command -v hermes >/dev/null 2>&1; then
   if hermes cron list 2>/dev/null | grep -q "hermes-brain-archive-hourly"; then
     read -rp "  Found 'hermes-brain-archive-hourly' cron job. Remove it now? [Y/n]: " RM_CRON
-    if [ "${RM_CRON,,}" != "n" ]; then
+    if [ $(lower "$RM_CRON") != "n" ]; then
       hermes cron delete "hermes-brain-archive-hourly" \
         && ok "Removed 'hermes-brain-archive-hourly' cron job." \
         || warn "Could not remove cron job automatically — run: hermes cron delete hermes-brain-archive-hourly"

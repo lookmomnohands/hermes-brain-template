@@ -54,6 +54,7 @@ bold()  { printf '\033[1m%s\033[0m\n' "$1"; }
 info()  { printf '  %s\n' "$1"; }
 warn()  { printf '  \033[33m! %s\033[0m\n' "$1"; }
 ok()    { printf '  \033[32m✓ %s\033[0m\n' "$1"; }
+lower() { echo "$1" | tr '[:upper:]' '[:lower:]'; }
 
 cd "$VAULT_ROOT"
 
@@ -100,7 +101,7 @@ else
     warn "You have uncommitted changes."
     if [ "$DRY_RUN" = false ]; then
       read -rp "  Commit them now before updating? [Y/n]: " DOCOMMIT
-      if [ "${DOCOMMIT,,}" != "n" ]; then
+      if [ $(lower "$DOCOMMIT") != "n" ]; then
         git add -A
         git commit -q -m "Snapshot before template update"
         ok "Committed."

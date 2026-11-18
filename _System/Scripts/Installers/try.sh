@@ -16,6 +16,7 @@ bold()  { printf '\033[1m%s\033[0m\n' "$1"; }
 info()  { printf '  %s\n' "$1"; }
 warn()  { printf '  \033[33m! %s\033[0m\n' "$1"; }
 ok()    { printf '  \033[32m✓ %s\033[0m\n' "$1"; }
+lower() { echo "$1" | tr '[:upper:]' '[:lower:]'; }
 
 echo
 bold "Hermes Brain — try it (scratch vault, no install)"
@@ -58,7 +59,7 @@ esac
 
 if [ "$FOUND_OBSIDIAN" = "1" ]; then
   read -rp "  Open in Obsidian now? [Y/n]: " OPENNOW
-  if [ "${OPENNOW,,}" != "n" ]; then
+  if [ $(lower "$OPENNOW") != "n" ]; then
     eval "$OPEN_CMD" &
     ok "Launched."
   fi
