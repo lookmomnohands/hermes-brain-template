@@ -1,6 +1,6 @@
 ---
 
-kanban-plugin: board
+kanban-plugin: basic
 
 ---
 
@@ -26,3 +26,12 @@ kanban-plugin: board
 
 
 
+%% kanban:settings
+```json
+{
+  "kanban-plugin": "basic",
+  "show-checkboxes": true,
+  "archive-with-date": false
+}
+```
+%%
